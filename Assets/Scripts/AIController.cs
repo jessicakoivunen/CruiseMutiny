@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,76 +7,60 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    public float speed;
-    public Transform player;
-    public float stoppingDistance;
-    public float retreatDistance;
-    public float retreatSpeed;
-
-
+    private float speed;
+    private float movementRadius;
+    public bool gameOver = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        if (tag == "Security")
+        if (CompareTag("Security"))
         {
             speed = 0;
-            stoppingDistance = 1;
-            retreatDistance = 1;
-            retreatSpeed = 1;
-
-
+            movementRadius = 0;
         }
-        else if (tag == "Crew")
+        else if (CompareTag("Crew"))
         {
             speed = 3;
-            stoppingDistance = 3;
-            retreatDistance = 2;
-            retreatSpeed = 2;
+            movementRadius = 4;
 
         }
-        else if (tag == "Volunteer")
+        else if (CompareTag("Volunteer"))
         {
             speed = 1;
-            stoppingDistance = 1;
-            retreatDistance = 1;
-            retreatSpeed = 1;
+            movementRadius = 2;
         }        
     }
 
     // Update is called once per frame
+    // The AI will move on x axis back and forth within a certain area regardless of player position or movement.
+    // The AI should not move on the y axis, so put a lock on that.
     void Update()
     {
-        if (Vector2.Distance(transform.position, player.position) > stoppingDistance)
+        if (CompareTag("Crew"))
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            transform.position = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, transform.position.y);
         }
-        else if (Vector2.Distance(transform.position, player.position) < stoppingDistance && Vector2.Distance(transform.position, player.position) > retreatDistance)
+        else if (CompareTag("Volunteer"))
         {
-            transform.position = this.transform.position;
+            transform.position = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, transform.position.y);
         }
-        else if (Vector2.Distance(transform.position, player.position) < retreatDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
-        }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (tag == "Security")
+            if (CompareTag("Security"))
             {
                 Debug.Log("Security: Halt! Who goes there?");
+                gameOver = true;
             }
-            else if (tag == "Crew")
+            else if (CompareTag("Crew"))
             {
                 Debug.Log("Crew: Hey, watch where you're going!");
             }
-            else if (tag == "Volunteer")
+            else if (CompareTag("Volunteer"))
             {
                 Debug.Log("Volunteer: Hi there! Enjoying the festival?");
             }
@@ -84,17 +69,18 @@ public class AIController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (tag == "Security")
+            if (CompareTag("Security"))
             {
+
                 Debug.Log("Security: That's right, keep moving!");
             }
-            else if (tag == "Crew")
+            else if (CompareTag("Crew"))
             {
                 Debug.Log("Crew: Phew, that was close!");
             }
-            else if (tag == "Volunteer")
+            else if (CompareTag("Volunteer"))
             {
                 Debug.Log("Volunteer: Have a great day!");
             }
@@ -104,9 +90,9 @@ public class AIController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, stoppingDistance);
+        Gizmos.DrawWireSphere(transform.position, movementRadius);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, retreatDistance);
+        Gizmos.DrawWireSphere(transform.position, movementRadius);
     }
 }

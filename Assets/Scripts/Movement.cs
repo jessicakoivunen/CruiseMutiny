@@ -17,7 +17,8 @@ public class Movement : MonoBehaviour
     {
         // The character jumps 2 unites when the W key is pressed
 
-    
+    if (gameOver == false)
+        {
         if (Input.GetKey(KeyCode.A))
         {
             moveDirection.x = -fSpeed;
@@ -44,6 +45,15 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             moveDirection.x = 0;
+        }
+    }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Security"))
+        {
+            Debug.Log("Security: Halt! Who goes there?");
+            gameOver = true;
         }
     }
 }
