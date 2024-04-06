@@ -4,6 +4,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This script controls the player character's movement, interactions, and health
+/// Score is kept track of and displayed on the screen
+/// Conversations with NPCs are triggered when the player gets close to them
+/// Score (doubloons) are used to bribe the security guard to pass
+/// </summary>
 public class CharacterController : MonoBehaviour
 {
     //Move + Jump
@@ -34,92 +40,98 @@ public class CharacterController : MonoBehaviour
     [SerializeField] GameObject[] projectiles;
     public float offset = 0.2f;
 
-    //Audio
-    public AudioClip jump_audio;
-    private AudioSource playerAudio;
-    public AudioClip coin_pickup;
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// Audio clips for player actions
+    /// </summary>
+    private AudioSource playerAudio;                // Reference to the audio source
+    public AudioClip jump_audio;                    // Plays when the player jumps
+    public AudioClip coin_pickup;                   // Plays when the player picks up a coin
     void Start()
     {
-        playerAudio = GetComponent<AudioSource>();
-        rb = GetComponent<Rigidbody2D>();
-        Time.timeScale = 1;
+        playerAudio = GetComponent<AudioSource>();  // Gets the audio source component
+        rb = GetComponent<Rigidbody2D>();           // Gets the Rigidbody2D component
+        Time.timeScale = 1;                         // Ensures the game is not paused
     }
-
     void RandomProjectile()
     {
-        int rnd = Random.Range(0, projectiles.Length);
-        Instantiate(projectiles[rnd], rb.position + Vector2.right*offset, projectiles[rnd].transform.rotation);
+        int rnd = Random.Range(0, projectiles.Length);                                                          // Randomly selects a projectile from the array of projectiles
+        Instantiate(projectiles[rnd], rb.position + Vector2.right*offset, projectiles[rnd].transform.rotation); // Spawns the projectile in front of the player character
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Set the player큦 controls for movement, jumping, and shooting projectiles.
+    ///     * The player can move left and right using the A and D keys
+    ///     * The player can jump using the W key
+    ///     * The player can shoot projectiles using the Space key
+    /// Check if the player is touching the ground to allow jumping
+    ///     * if not, the player cannot jump
+    /// </summary>
     void Update()
     {
         //Move left/right
         float horizontal = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);   // Moves the player left and right
 
         //Jump
-        if (Input.GetKeyDown(KeyCode.W) && isOnGround)
+        if (Input.GetKeyDown(KeyCode.W) && isOnGround)                  // Checks if the player is on the ground before jumping
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            isOnGround = false;
-            playerAudio.PlayOneShot(jump_audio, 1.0f);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);        // Makes the player jump
+            isOnGround = false;                                         // Prevents the player from jumping in the air
+            playerAudio.PlayOneShot(jump_audio, 1.0f);                  // Plays the jump audio
         }
 
         //Throw projectiles
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))                            // Checks if the player presses the space key
         {
-            //shoot projectile
-            RandomProjectile();
+            RandomProjectile();                                         // Calls the RandomProjectile function to shoot a projectile
         }
     }
 
+    /// <summary>
+    /// Player collects coins and increases the score
+    /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isOnGround = true;
 
-        //Score
-        if (collision.collider.CompareTag("Score"))
+        if (collision.collider.CompareTag("Score"))                 // Checks if the player collides with an object tagged "Score"
         {
-            playerAudio.PlayOneShot(coin_pickup, 1.0f);
-            score++;
-            scoreText.text = "DOUBLOONS:  " + score.ToString();
-            Destroy(collision.gameObject);
-
+            playerAudio.PlayOneShot(coin_pickup, 1.0f);             // Plays the coin pickup audio
+            score++;                                                // Increases the score by 1
+            scoreText.text = "DOUBLOONS:  " + score.ToString();     // Displays the score on the screen
+            Destroy(collision.gameObject);                          // Destroys the coin object once the player collects it
         }
-
     }
 
-    // Once conversation panel is active, pause the game for 5 seconds
+    /// <summary>
+    /// Set the player큦 interactions with NPCs and security guard
+    ///     * The player can interact with the crew, volunteers, and security guard
+    ///     * The player can take damage from the crew and volunteers
+    ///     * The player can pass the security guard if the score is greater than or equal to 5
+    ///     * If the player has less than 5 doubloons, the security guard will not let the player pass
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //NPC interactions
-        if (collision.CompareTag("Crew"))
+        if (collision.CompareTag("Crew"))   // Checks if the player collides with an object tagged "Crew"
         {
-            //Speech
-            SpeechBubble.SetActive(true);
-            CrewText();
-            //Damage
-            TakeDamage(2);
+            SpeechBubble.SetActive(true);   // Displays the speech bubble
+            CrewText();                     // Calls the CrewText function to display a random conversation
+            TakeDamage(2);                  // Crew deals more damage (-2 hp)
         }
-        if (collision.CompareTag("Volunteer"))
+        if (collision.CompareTag("Volunteer"))  // Checks if the player collides with an object tagged "Volunteer"
         {
-            //Speech
-            SpeechBubble.SetActive(true);
-            VolunteerText();
-            //Damage
-            TakeDamage(1);
+            SpeechBubble.SetActive(true);       // Displays the speech bubble
+            VolunteerText();                    // Calls the VolunteerText function to display a random conversation
+            TakeDamage(1);                      // Volunteer deals less damage (-1 hp)
         }
-        if (collision.CompareTag("Security"))
+        if (collision.CompareTag("Security"))       // Checks if the player collides with an object tagged "Security"
         {
-            // Check if player has enough score to pass
-            if (score >= 5)
+            if (score >= 5)                         // Checks if the player has 5 or more doubloons
             {
                 // if YES, subtract 5 from score and load next level
-                score -= 5;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                score -= 5;                         // Subtracts 5 from the score when the player passes the security guard
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);   // Loads the next level
             }
             else
             {
@@ -127,7 +139,9 @@ public class CharacterController : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Disable the speech bubble when the player exits the NPC큦 trigger area
+    /// </summary>
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Crew"))
@@ -138,34 +152,42 @@ public class CharacterController : MonoBehaviour
         {
             SpeechBubble.SetActive(false);
         }
-    
     }
+    /// <summary>
+    /// Randomizes the conversation text for the crew based on a random number
+    /// </summary>
     int iRandomNumber()
     {
         return Random.Range(0, 3);
     }
 
+    /// <summary>
+    /// Displays a random conversation for the crew based on a random number from iRandomNumber()-function
+    /// </summary>
     private void CrewText()
     {
         // Get a random number between 0 and 3  
-        if (iRandomNumber() == 0)
+        if (iRandomNumber() == 0)                                                       // Checks if the random number is 0
         {
-            CrewConversationPanelText.text = "Crew: Ello there matey!";
+            CrewConversationPanelText.text = "Crew: Ello there matey!";                 // Displays the conversation text
         }
         else if (iRandomNumber() == 1)
         {
-            CrewConversationPanelText.text = "Crew: Ahoy there!";
+            CrewConversationPanelText.text = "Crew: Ahoy there!";                       // Displays the conversation text
         }
-        else if (iRandomNumber() == 2)
+        else if (iRandomNumber() == 2)                                                  // Checks if the random number is 2
         {
-            CrewConversationPanelText.text = "Crew: Hey, watch where you're going!";
+            CrewConversationPanelText.text = "Crew: Hey, watch where you're going!";    // Displays the conversation text
         }
-        else if (iRandomNumber() == 3)
+        else if (iRandomNumber() == 3)                                                  // Checks if the random number is 3
         {
-            CrewConversationPanelText.text = "Crew: Fock off shoeless!";
+            CrewConversationPanelText.text = "Crew: Fock off shoeless!";                // Displays the conversation text
         }
     }
 
+    /// <summary>
+    /// Randomizes the conversation text for the volunteer based on a random number
+    /// </summary>
     public void VolunteerText()
     {
         // Get a random number between 0 and 3  
@@ -187,22 +209,30 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    /// <summary>
+    /// Player takes damage from the crew and volunteers
+    ///     * The player큦 health decreases by 1 HP when hit by the volunteer
+    ///     * The player큦 health decreases by 2 HP when hit by the crew
+    ///     * If the player큦 health reaches 0, the game is over
+    /// </summary>
+    public void TakeDamage(int damage)                          // Takes damage from the crew and volunteers
     {
-        if (health >= 1)
+        if (health >= 1)                                        // Checks if the player큦 health is greater than or equal to 1
         {
-            health -= damage;
-            healthText.text = "HEALTH:  " + health.ToString();
+            health -= damage;                                   // Decreases the player큦 health by the damage amount
+            healthText.text = "HEALTH:  " + health.ToString();  // Displays the player큦 health on the screen
         }
         else
         {
-            GameOver();
+            GameOver();                                         // Calls the GameOver function when the player큦 health reaches 0
         }
     }
-
+    /// <summary>
+    /// Stops the game and displays the game over screen when the player큦 health reaches 0
+    /// </summary>
     public void GameOver()
     {
-        GameOverScreen.SetActive(true);
-        Time.timeScale = 0;
+        GameOverScreen.SetActive(true); // Displays the game over screen
+        Time.timeScale = 0;             // Pauses the game
     }
 }
