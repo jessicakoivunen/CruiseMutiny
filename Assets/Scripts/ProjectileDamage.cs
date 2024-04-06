@@ -20,7 +20,7 @@ public class ProjectileDamage : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Weapon")   // The projectiles have the tag "Weapon" in Unity. Can be used for melee weapons as well
+        if (other.gameObject.CompareTag("Weapon"))   // The projectiles have the tag "Weapon" in Unity. Can be used for melee weapons as well
         {
             audioSource.PlayOneShot(coal_hit, 1.0f);
             iEnemyHealth--;

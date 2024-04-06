@@ -42,7 +42,7 @@ public class TypeWriterEffect : MonoBehaviour
             isDoneTyping = true;
             
         }
-        if (isDoneTyping)
+        if ((isDoneTyping) && (SceneManager.GetActiveScene().buildIndex%2 == 1) || CompareTag("Security"))
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {

@@ -21,6 +21,7 @@ public class CharacterController : MonoBehaviour
     //Game over
     public bool gameOver = false;
     public GameObject GameOverScreen;
+    public GameObject PauseButton;
 
     //Score keeping
     [SerializeField] TMP_Text scoreText;
@@ -231,6 +232,7 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        PauseButton.SetActive(false);    // Disables the pause button
         GameOverScreen.SetActive(true); // Displays the game over screen
         Time.timeScale = 0;             // Pauses the game
     }
