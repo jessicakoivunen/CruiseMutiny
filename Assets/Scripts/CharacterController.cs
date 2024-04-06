@@ -33,9 +33,14 @@ public class CharacterController : MonoBehaviour
     [SerializeField] GameObject[] projectiles;
     public float offset = 0.2f;
 
+    //Audio
+    public AudioClip jump_audio;
+    private AudioSource playerAudio;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerAudio = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         Time.timeScale = 1;
     }
@@ -58,6 +63,7 @@ public class CharacterController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isOnGround = false;
+            playerAudio.PlayOneShot(jump_audio, 1.0f);
         }
 
         //Throw projectiles
@@ -169,7 +175,7 @@ public class CharacterController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (health > 0)
+        if (health >= 1)
         {
             health -= damage;
             healthText.text = "HEALTH:  " + health.ToString();

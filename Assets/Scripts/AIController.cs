@@ -11,13 +11,14 @@ public class AIController : MonoBehaviour
     private float speed;
     private float movementRadius;
     public bool gameOver = false;
-    public bool volunteerConversation = false;
-    public bool crewConversation = false;
     public bool canMove = true;
+    private Rigidbody2D rb = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         if (CompareTag("Security"))
         {
             speed = 0;
@@ -26,13 +27,13 @@ public class AIController : MonoBehaviour
         else if (CompareTag("Crew"))
         {
             speed = 3;
-            movementRadius = 4;
+            movementRadius = 2;
 
         }
         else if (CompareTag("Volunteer"))
         {
             speed = 1;
-            movementRadius = 2;
+            movementRadius = 1;
         }        
     }
 
@@ -43,11 +44,11 @@ public class AIController : MonoBehaviour
     {
         if (CompareTag("Crew") && (canMove))
         {
-            transform.position = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, transform.position.y);
+            rb.velocity = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, rb.velocity.y);
         }
         else if (CompareTag("Volunteer") && (canMove))
         {
-            transform.position = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, transform.position.y);
+            rb.velocity = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, rb.velocity.y);
         }
     }
 
@@ -88,15 +89,5 @@ public class AIController : MonoBehaviour
                 canMove = true;
             }
         }
-    }
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, movementRadius);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, movementRadius);
     }
 }
