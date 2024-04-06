@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
@@ -110,8 +111,17 @@ public class CharacterController : MonoBehaviour
         }
         if (collision.CompareTag("Security"))
         {
-            score -= 5;
-            scoreText.text = "DOUBLOONS:  " + score.ToString();
+            // Check if player has enough score to pass
+            if (score >= 5)
+            {
+                // if YES, subtract 5 from score and load next level
+                score -= 5;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            else
+            {
+                Debug.Log("Security: Halt! Who goes there?");
+            }
         }
     }
 
