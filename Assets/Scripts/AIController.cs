@@ -13,6 +13,7 @@ public class AIController : MonoBehaviour
     public bool gameOver = false;
     public bool volunteerConversation = false;
     public bool crewConversation = false;
+    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -40,11 +41,11 @@ public class AIController : MonoBehaviour
     // The AI should not move on the y axis, so put a lock on that.
     void Update()
     {
-        if (CompareTag("Crew"))
+        if (CompareTag("Crew") && (canMove))
         {
             transform.position = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, transform.position.y);
         }
-        else if (CompareTag("Volunteer"))
+        else if (CompareTag("Volunteer") && (canMove))
         {
             transform.position = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, transform.position.y);
         }
@@ -64,37 +65,18 @@ public class AIController : MonoBehaviour
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
             }
-            else if (CompareTag("Crew"))
+            if (CompareTag("Crew"))
             {
-                Debug.Log("Crew: Hey, watch where you're going!");
+                canMove = false;
             }
-            else if (CompareTag("Volunteer"))
+            if (CompareTag("Volunteer"))
             {
-                Debug.Log("Volunteer: Hi there! Enjoying the festival?");
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (CompareTag("Security"))
-            {
-
-                Debug.Log("Security: That's right, keep moving!");
-            }
-            else if (CompareTag("Crew"))
-            {
-                Debug.Log("Crew: Phew, that was close!");
-            }
-            else if (CompareTag("Volunteer"))
-            {
-                Debug.Log("Volunteer: Have a great day!");
+                canMove = false;
             }
         }
     }
 
+ 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
