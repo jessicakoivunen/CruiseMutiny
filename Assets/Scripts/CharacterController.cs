@@ -22,7 +22,6 @@ public class CharacterController : MonoBehaviour
     public bool gameOver = false;
     public GameObject GameOverScreen;
 
-
     //Score keeping
     [SerializeField] TMP_Text scoreText;
     public int score = 0;

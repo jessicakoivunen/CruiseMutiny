@@ -7,6 +7,7 @@ public class MainMenuScript : MonoBehaviour
     public GameObject ControlsPanel;
     public GameObject CreditsPanel;
     public GameObject OptionsPanel;
+    public GameObject PausePanel;
 
     // If the play button is clicked, load the game
     public void PlayGame()
@@ -63,6 +64,20 @@ public class MainMenuScript : MonoBehaviour
         else
         {
             OptionsPanel.SetActive(true);
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (PausePanel.activeInHierarchy)
+        {
+            PausePanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            PausePanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }
