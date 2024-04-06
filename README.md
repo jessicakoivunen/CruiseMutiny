@@ -22,5 +22,12 @@ ENVIRONMENT: cruise ship
 - backgrounds
 - obstacles
 
+SOUNDS + MUSIC
 
 STORY: Unemployed construction engineer starts working at a cruise ship's engine room. Due to the poor working conditions our anxious protagonist starts a mutiny. Lead him to the command deck.
+
+
+EXTRA:
+- speech
+- security check
+- 
