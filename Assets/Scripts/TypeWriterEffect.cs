@@ -37,7 +37,6 @@ public class TypeWriterEffect : MonoBehaviour
     {
         // Once the text is done typing, the player can press the space bar to move to the next scene.
 
-
         if (isDone == true)
         {
             isDoneTyping = true;

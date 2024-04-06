@@ -11,6 +11,8 @@ public class AIController : MonoBehaviour
     private float speed;
     private float movementRadius;
     public bool gameOver = false;
+    public bool volunteerConversation = false;
+    public bool crewConversation = false;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +57,12 @@ public class AIController : MonoBehaviour
             if (CompareTag("Security"))
             {
                 Debug.Log("Security: Halt! Who goes there?");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                // if the score in CharacterController.cs is greater than or equal to 5, the player can move to the next scene.
+  
+                if (collision.gameObject.GetComponent<CharacterController>().score >= 5)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
             }
             else if (CompareTag("Crew"))
             {
