@@ -3336,6 +3336,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 945878048466515736, guid: f0bf2ad6f52a9b84d9e1eca0f1576e38, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945878048466515736, guid: f0bf2ad6f52a9b84d9e1eca0f1576e38, type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 945878048466515736, guid: f0bf2ad6f52a9b84d9e1eca0f1576e38, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0.12777779
+      objectReference: {fileID: 0}
     - target: {fileID: 2967336639205893032, guid: f0bf2ad6f52a9b84d9e1eca0f1576e38, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.74

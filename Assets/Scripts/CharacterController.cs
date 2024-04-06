@@ -37,6 +37,7 @@ public class CharacterController : MonoBehaviour
     //Audio
     public AudioClip jump_audio;
     private AudioSource playerAudio;
+    public AudioClip coin_pickup;
 
     // Start is called before the first frame update
     void Start()
@@ -82,9 +83,11 @@ public class CharacterController : MonoBehaviour
         //Score
         if (collision.collider.CompareTag("Score"))
         {
+            playerAudio.PlayOneShot(coin_pickup, 1.0f);
             score++;
             scoreText.text = "DOUBLOONS:  " + score.ToString();
             Destroy(collision.gameObject);
+
         }
 
     }
