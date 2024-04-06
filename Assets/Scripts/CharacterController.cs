@@ -10,18 +10,11 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D rb = null;
     public float jumpForce = 6f;
     public bool isOnGround = true;
-    public bool PCcanMove = true;
 
     //Game over
     public bool gameOver = false;
-    public bool volunteerConversation = false;
-    public bool crewConversation = false;
-    public bool speechBubble = false;
-
     public GameObject GameOverScreen;
-    public GameObject CrewConversationPanel;
-    public GameObject VolunteerConversationPanel;
-    public GameObject SpeechBubble;
+
 
     //Score keeping
     [SerializeField] TMP_Text scoreText;
@@ -30,13 +23,15 @@ public class CharacterController : MonoBehaviour
     //Convo Panels
     [SerializeField] TMP_Text CrewConversationPanelText;
     [SerializeField] TMP_Text VolunteerConversationPanelText;
+    public GameObject SpeechBubble;
 
     //Health
     int health = 10;
     [SerializeField] TMP_Text healthText;
 
     //Projectiles
-
+    [SerializeField] GameObject[] projectiles;
+    public float offset = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,25 +40,31 @@ public class CharacterController : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    void RandomProjectile()
+    {
+        int rnd = Random.Range(0, projectiles.Length);
+        Instantiate(projectiles[rnd], rb.position + Vector2.right*offset, projectiles[rnd].transform.rotation);
+    }
+
     // Update is called once per frame
     void Update()
     {
         //Move left/right
         float horizontal = Input.GetAxisRaw("Horizontal");
-        if (PCcanMove)
-        {
-            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
-        }
-        else if (!PCcanMove)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
         //Jump
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && isOnGround)
+        if (Input.GetKeyDown(KeyCode.W) && isOnGround)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isOnGround = false;
+        }
+
+        //Throw projectiles
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //shoot projectile
+            RandomProjectile();
         }
     }
 
@@ -83,24 +84,21 @@ public class CharacterController : MonoBehaviour
     // Once conversation panel is active, pause the game for 5 seconds
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Damage
-        if (collision.CompareTag("Crew") && PCcanMove)
+        //NPC interactions
+        if (collision.CompareTag("Crew"))
         {
+            //Speech
             SpeechBubble.SetActive(true);
-            CrewConversationPanel.SetActive(true);
             CrewText();
-
-            // Once conversation panel is active, slow game scale to 0.2 for 5 seconds
-            Time.timeScale = 0.9f;
-            Debug.Log("Crew ACTIVE");
+            //Damage
             TakeDamage(2);
         }
         if (collision.CompareTag("Volunteer"))
         {
+            //Speech
             SpeechBubble.SetActive(true);
-            VolunteerConversationPanel.SetActive(true);
             VolunteerText();
-            Time.timeScale = 0.9f;
+            //Damage
             TakeDamage(1);
         }
         if (collision.CompareTag("Security"))
@@ -114,15 +112,11 @@ public class CharacterController : MonoBehaviour
     {
         if (collision.CompareTag("Crew"))
         {
-            CrewConversationPanel.SetActive(false);
-            Time.timeScale = 1;
-            PCcanMove = true;
+            SpeechBubble.SetActive(false);
         }
         if (collision.CompareTag("Volunteer"))
         {
-            VolunteerConversationPanel.SetActive(false);
-            Time.timeScale = 1;
-            PCcanMove = true;
+            SpeechBubble.SetActive(false);
         }
     
     }

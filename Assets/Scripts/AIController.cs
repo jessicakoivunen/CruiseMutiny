@@ -75,8 +75,22 @@ public class AIController : MonoBehaviour
             }
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (CompareTag("Crew"))
+            {
+                canMove = true;
+            }
+            if (CompareTag("Volunteer"))
+            {
+                canMove = true;
+            }
+        }
+    }
 
- 
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
