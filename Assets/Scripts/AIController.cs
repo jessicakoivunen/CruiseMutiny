@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // There are tags for "Volunteer", who walk around back and forth in a small area, Crew, who walk around a larger area, and Security, who stand in place and trigger a dialogue when the player gets close.
 
@@ -54,7 +55,7 @@ public class AIController : MonoBehaviour
             if (CompareTag("Security"))
             {
                 Debug.Log("Security: Halt! Who goes there?");
-                gameOver = true;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
             else if (CompareTag("Crew"))
             {

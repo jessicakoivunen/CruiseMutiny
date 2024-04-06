@@ -35,9 +35,26 @@ public class TypeWriterEffect : MonoBehaviour
 
     void Update()
     {
+        // Once the text is done typing, the player can press the space bar to move to the next scene.
+
+
         if (isDone == true)
         {
             isDoneTyping = true;
+            
+        }
+        if (isDoneTyping)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+
+        // If the player presses the "Q" key, the game will quit.
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            QuitGame();
         }
     }
 
