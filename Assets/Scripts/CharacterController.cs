@@ -83,6 +83,7 @@ public class CharacterController : MonoBehaviour
         {
             score++;
             scoreText.text = "DOUBLOONS:  " + score.ToString();
+            Destroy(collision.gameObject);
         }
 
     }
@@ -109,7 +110,7 @@ public class CharacterController : MonoBehaviour
         }
         if (collision.CompareTag("Security"))
         {
-            score = 0;
+            score -= 5;
             scoreText.text = "DOUBLOONS:  " + score.ToString();
         }
     }

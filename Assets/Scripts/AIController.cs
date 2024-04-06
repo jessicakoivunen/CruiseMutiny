@@ -27,13 +27,13 @@ public class AIController : MonoBehaviour
         else if (CompareTag("Crew"))
         {
             speed = 3;
-            movementRadius = 2;
+            movementRadius = 4;
 
         }
         else if (CompareTag("Volunteer"))
         {
             speed = 1;
-            movementRadius = 1;
+            movementRadius = 2;
         }        
     }
 
