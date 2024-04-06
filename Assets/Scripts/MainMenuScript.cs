@@ -4,38 +4,9 @@ using UnityEngine;
 
 public class MainMenuScript : MonoBehaviour
 {
-    // Menu items  for Continue (after pause), Play, Settings, and Quit
-    public GameObject continueButton;
-    public GameObject playButton;
-    public GameObject settingsButton;
-    public GameObject quitButton;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // If there is no saved game, disable the continue button
-        if (PlayerPrefs.GetInt("Saved") == 0)
-        {
-            continueButton.SetActive(false);
-        }
-
-        // If there is a saved game, enable the continue button
-        else
-        {
-            continueButton.SetActive(true);
-        }
-
-        // Set the play, settings, and quit buttons to active
-        playButton.SetActive(true);
-        settingsButton.SetActive(true);
-        quitButton.SetActive(true);
-    }
-    // If the continue button is clicked, load the saved game
-    public void ContinueGame()
-    {
-        Debug.Log("Continue Game");
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-    }
+    public GameObject ControlsPanel;
+    public GameObject CreditsPanel;
+    public GameObject OptionsPanel;
 
     // If the play button is clicked, load the game
     public void PlayGame()
@@ -44,17 +15,54 @@ public class MainMenuScript : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
-    // If the settings button is clicked, load the settings menu
-    public void Settings()
-    {
-        Debug.Log("Settings");
-        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
-    }
-
     // If the quit button is clicked, quit the game
     public void QuitGame()
     {
         Debug.Log("Quit Game");
         Application.Quit();
+    }
+    public void MainMenu()
+    {
+        //Open main menu
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
+    //Open + close controls
+    public void OpenControls()
+    {
+        if (ControlsPanel.activeInHierarchy)
+        {
+            ControlsPanel.SetActive(false);
+        }
+        else
+        {
+            ControlsPanel.SetActive(true);
+        }
+    }
+
+    //Open + close credits
+    public void OpenCredits()
+    {
+        if (CreditsPanel.activeInHierarchy)
+        {
+            CreditsPanel.SetActive(false);
+        }
+        else
+        {
+            CreditsPanel.SetActive(true);
+        }
+    }
+
+    //Open + close settings/options
+    public void OpenOptions()
+    {
+        if (OptionsPanel.activeInHierarchy)
+        {
+            OptionsPanel.SetActive(false);
+        }
+        else
+        {
+            OptionsPanel.SetActive(true);
+        }
     }
 }
