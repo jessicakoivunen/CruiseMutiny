@@ -48,33 +48,33 @@ EditorBuildSettings:
     path: Assets/Scenes/Level2.unity
     guid: 01c29e11d332b1244a82c863c9a95da6
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story010.unity
+    path: Assets/Scenes/Level 2/L2_story02.unity
     guid: b0b52e8d6cca19c4ba0a9fd4cfcab559
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story011.unity
+    path: Assets/Scenes/Level 2/L2_story03.unity
     guid: 167f8c13c9aea9341b72ea49229f3fbf
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story012.unity
+    path: Assets/Scenes/Level 2/L2_story04.unity
     guid: 1ed10b850669a684698ae3517ab848d4
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story013.unity
+    path: Assets/Scenes/Level 2/L2_story05.unity
     guid: dc9554c71f5bd78429d1a6f6bdaa3966
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story020.unity
+    path: Assets/Scenes/Level 2/L2_story06.unity
     guid: 6246982cf63e61b4cb50f49c367525b6
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story021.unity
+    path: Assets/Scenes/Level 2/L2_story07.unity
     guid: a05b45ab5d1b3864bbf4e0ec4d8af1bb
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story022.unity
+    path: Assets/Scenes/Level 2/L2_story08.unity
     guid: 7cfcb0a5b268b5e41a8c99b3241f14f1
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story023.unity
+    path: Assets/Scenes/Level 2/L2_story09.unity
     guid: 4fd383703c4e3754fb3fee08224cd5bf
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story024.unity
+    path: Assets/Scenes/Level 2/L2_story10.unity
     guid: 0843aca6e2cf7e14bbed21b6885dbebf
   - enabled: 1
-    path: Assets/Scenes/Level 2/L2_story025.unity
+    path: Assets/Scenes/Level 2/L2_story11.unity
     guid: 3e4ad5d9858378c4cbd3eb57390049b2
   m_configObjects: {}
