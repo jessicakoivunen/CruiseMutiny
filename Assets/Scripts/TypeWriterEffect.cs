@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
 
 
 public class TypeWriterEffect : MonoBehaviour
@@ -15,6 +13,7 @@ public class TypeWriterEffect : MonoBehaviour
     public bool isTyping = false;
     public bool isDone = false;
     public bool isDoneTyping = false;
+    public bool StoryScreen = false;
 
     void Start()
     {
@@ -22,6 +21,13 @@ public class TypeWriterEffect : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This coroutine will show the text one character at a time.
+    ///     * The currentText is updated with the next character in the fullText string
+    /// WaitForSeconds is used to delay the next character
+    /// isDone is set to true when the fullText has been displayed
+    /// subString is used to get the next character in the fullText string
+    /// </summary>
     IEnumerator ShowText()
     {
         for (int i = 0; i < fullText.Length; i++)
@@ -33,16 +39,36 @@ public class TypeWriterEffect : MonoBehaviour
         isDone = true;
     }
 
+    void OutroScene()
+    {
+        if ((SceneManager.GetActiveScene().buildIndex > 3 || SceneManager.GetActiveScene().buildIndex <= 5) || (SceneManager.GetActiveScene().buildIndex > 7) || (SceneManager.GetActiveScene().buildIndex <= 16))
+            {
+            StoryScreen = true;
+        }
+        else
+        {
+            StoryScreen = false;
+        }
+    }
+
+    /// <summary>
+    /// isDoneTyping is set to true when the text is done typing
+    ///     * The player can press the space bar to move to the next scene
+    ///     * The player can press the "Q" key to quit the game
+    ///     * The player can press the "R" key to restart the game
+    /// </summary>
     void Update()
     {
         // Once the text is done typing, the player can press the space bar to move to the next scene.
+        OutroScene();
 
         if (isDone == true)
         {
             isDoneTyping = true;
             
         }
-        if ((isDoneTyping) && (SceneManager.GetActiveScene().buildIndex%2 == 1) || CompareTag("Security"))
+        // If the player presses the space bar, the game will move to the next scene, when the scene number is odd. or
+        if ((isDoneTyping) && (SceneManager.GetActiveScene().buildIndex%2 == 1) || StoryScreen == true)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
