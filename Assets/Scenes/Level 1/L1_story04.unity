@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: "Willy: \"Can\xB4t say I have. Why, what happened to your shoes?\""
+  fullText: '"Some audacious tw*t has stolen them!"'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0

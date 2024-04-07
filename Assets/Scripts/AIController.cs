@@ -63,8 +63,11 @@ public class AIController : MonoBehaviour
         {
             rb.velocity = new Vector2(Mathf.PingPong(Time.time * speed, movementRadius * 2) - movementRadius, rb.velocity.y);
         }
+        else if (!canMove)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
-
     /// <summary>
     /// Stops the AI from moving when the player is close
     ///     * This prevents the AI from running away too fast, and gives the player time to read the dialogue

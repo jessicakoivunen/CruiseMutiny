@@ -258,11 +258,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: '''Oi there little man! Have you seen my shoes? One of these clowns jumping
-    around must have stolen them!'
+  fullText: '"''Oi Willy!"'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
+  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ Transform:
   m_GameObject: {fileID: 373170229}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.9652, y: -4.3124, z: 0.64529}
+  m_LocalPosition: {x: 8.04, y: -3.42, z: 0.64529}
   m_LocalScale: {x: 0.98232, y: 0.98232, z: 0.98232}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -743,8 +743,8 @@ Transform:
   m_GameObject: {fileID: 990193091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5998, y: -2.1906, z: 0.64529}
-  m_LocalScale: {x: 0.98232, y: 0.98232, z: 0.98232}
+  m_LocalPosition: {x: 5.53, y: -3.15, z: 0.64529}
+  m_LocalScale: {x: 1.7108822, y: 1.7108822, z: 1.7108822}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

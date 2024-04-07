@@ -101,6 +101,7 @@ public class CharacterController : MonoBehaviour
             scoreText.text = "DOUBLOONS:  " + score.ToString();     // Displays the score on the screen
             Destroy(collision.gameObject);                          // Destroys the coin object once the player collects it
         }
+
     }
 
     /// <summary>
