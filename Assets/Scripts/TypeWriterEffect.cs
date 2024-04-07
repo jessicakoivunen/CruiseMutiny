@@ -32,7 +32,7 @@ public class TypeWriterEffect : MonoBehaviour
         for (int i = 0; i <= fullText.Length; i++)
         {
             currentText = fullText.Substring(0, i);
-            this.GetComponent<TextMeshProUGUI>().text = currentText + " ";
+            this.GetComponent<TextMeshProUGUI>().text = currentText;
             yield return new WaitForSeconds(delay);
         }
         isDone = true;
@@ -58,6 +58,14 @@ public class TypeWriterEffect : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+        if ((isDoneTyping) && (SceneManager.GetActiveScene().name == "L2_story11"))
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // Load Main Menu scene
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }
