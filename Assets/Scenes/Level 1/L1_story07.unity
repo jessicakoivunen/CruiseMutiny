@@ -258,11 +258,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: "Willy: \"No way! You know you\xB4re not allowed in the passanger area!\""
+  fullText: 'Willy: "No way! You know you''re not allowed in the passanger area!"'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
-  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0

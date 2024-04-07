@@ -174,12 +174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: "Blimey! Those thieving volunteer rats! They\xB4ve stolen me boots! I
-    need to find the Capt\xB4n to complain... (Press \xB4SPACE\xB4to continue...) "
+  fullText: "\"Blimey! Those thieving volunteer rats! They've stolen me boots! I
+    need to find the Capt'n to complain...\" (Press \xB4SPACE\xB4to continue...)"
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
-  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +233,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 32
-  m_VerticalAlignment: 4096
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

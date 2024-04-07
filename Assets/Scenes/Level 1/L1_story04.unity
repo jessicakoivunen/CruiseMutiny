@@ -258,11 +258,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: '"Some audacious tw*t has stolen them!"'
+  fullText: '"Some audacious tw*t must''ve stolen them!"'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
-  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -258,11 +258,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: "Willy: \"Can\xB4t say I have. Why, what happened to your shoes?\""
+  fullText: 'Willy: "Can''t say I have. Why, what happened to your shoes?"'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
-  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0

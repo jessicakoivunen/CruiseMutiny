@@ -258,12 +258,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: "Willy: \"Well it\xB4s not that there\xB4s no way, but... You know what,
-    give me five doubloons and I\xB4ll pretend we didn\xB4t meet.\"\""
+  fullText: 'Willy: "Well it''s not that there''s no way, but... You know what, give
+    me five doubloons and I''ll pretend we didn''t meet.""'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
-  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0

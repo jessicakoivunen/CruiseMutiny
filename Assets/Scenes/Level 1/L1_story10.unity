@@ -258,12 +258,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.1
-  fullText: "\"This is outrageous! Fine - just don\xB4t come find me the next time
-    you lose money at poker!\""
+  fullText: '"This is outrageous! Fine - just don''t come running to me the next
+    time you lose money in a poker game!"'
   isTyping: 0
   isDone: 0
   isDoneTyping: 0
-  StoryScreen: 0
 --- !u!114 &41011945
 MonoBehaviour:
   m_ObjectHideFlags: 0
